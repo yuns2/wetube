@@ -1,0 +1,10 @@
+mixin videoBlock(video = {})
+    //- 객체가 mixin에 입력되면, 그 객체의 title을 받아서 화면에 표시한다.
+    .videoBlock
+        a(href=routes.videoDetail(video.id))
+            video.videoBlock__thumbnail(src=video.videoFile, controls=true)
+            h4.videoBlock__title=video.title
+            if video.views === 1
+                h6.videoBlock__views 1 view
+            else
+                h6.videoBlock__views #{video.views} views
