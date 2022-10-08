@@ -1,0 +1,4 @@
+{
+    "ignore": ["*.test.js", "**/fixtures/**", "src/client/*", "assets/*"],
+    "exec" : "babel-node src/init.js"
+}

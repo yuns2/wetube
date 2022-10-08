@@ -1,0 +1,16 @@
+extends base.pug
+block content
+    if errorMessage
+        span=errorMessage
+    form(method="POST")
+        input(placeholder="Name" type="text" required name="name")
+        input(placeholder="Email" type="text" required name="email")
+        input(placeholder="Username" type="text" required name="username")
+        input(placeholder="Password", type="password", required, name="password")
+        input(placeholder="Confirm the Password", type="password", required, name="password2")
+        input(placeholder="Location" type="text" required name="location")
+        input(type="submit" value="Join")
+    hr
+    div
+        span Already have an account? 
+        a(href="/login") Log in now &rarr;
