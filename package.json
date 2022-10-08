@@ -9,8 +9,8 @@
     "url": "git+https://github.com/yuns2/wetube.git"
   },
   "scripts": {
-    "start" : "node build/init.js",
-    "build:server" : "babel src -d build",
+    "start": "node build/init.js",
+    "build:server": "babel src -d build",
     "build:assets": "webpack --mode=production",
     "dev:server": "nodemon",
     "dev:assets": "webpack --mode=development -w"
