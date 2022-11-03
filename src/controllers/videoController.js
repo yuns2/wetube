@@ -3,7 +3,7 @@ import User from '../models/User.js';
 import Comment from '../models/Comment.js';
 
 export const home = async (req, res) => {
-    const videos = await Video.find({});
+    const videos = await Video.find({}).sort({createdAt:"desc"}).populate("owner");
     // console.log(videos);
     return res.render("home", { pageTitle : "Home", videos });
 }
@@ -17,7 +17,7 @@ export const search = async (req, res) => {
             title: {
                 $regex : new RegExp(keyword, "i"),
             }
-        })
+        }).populate("owner");
     }
     console.log(videos);
     return res.render("search", { pageTitle: "Search", videos });
@@ -26,7 +26,7 @@ export const search = async (req, res) => {
 export const watch = async (req, res) => {
 	const { id } = req.params;
     const video = await Video.findById(id).populate("owner").populate("comments");
-    console.log(video.owner);
+    // console.log(video.owner);
     if (!video) { // error 먼저 처리
         return res.render("404", { pageTitle: "Video Not Found."});
     }
@@ -148,4 +148,19 @@ export const deleteComment = async (req, res) => {
     }
     await Comment.findByIdAndRemove(commentId)
     return res.sendStatus(202);
+}
+
+export const registerView = async (req, res) => {
+	const { id } = req.params;
+	const video = await Video.findById(id);
+	if(!video) {
+		// video가 없으면
+		return res.sendStatus(404);
+	}
+	// video가 있으면, video update
+		video.meta.views = video.meta.views + 1;
+		await video.save();
+		return res.sendStatus(200);
+	
+
 }
