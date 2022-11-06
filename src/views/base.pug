@@ -1,3 +1,5 @@
+include mixins/message.pug
+
 doctype html
 html(lang="ko")
     head
@@ -7,11 +9,11 @@ html(lang="ko")
         title #{pageTitle} | #{siteName}
     body
         if messages.error
-            span=messages.error
+            +message("error", messages.error)
         if messages.info
-            span=messages.info
+            +message("error", messages.info)
         if messages.ok
-            span=messages.ok
+            +message("error", messages.success)
         include partials/header.pug
         main
             block content

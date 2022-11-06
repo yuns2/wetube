@@ -366,8 +366,8 @@ main {
   padding: 10px 20px;
   border-radius: 10000px;
   text-align: center;
-  animation: goAway 5s ease-in-out forwards;
-  animation-delay: 5s;
+  animation: goAway 0.5s ease-in-out forwards;
+  animation-delay: 3s;
 }
 .message.error {
   background-color: tomato;
