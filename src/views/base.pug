@@ -6,6 +6,12 @@ html(lang="ko")
         
         title #{pageTitle} | #{siteName}
     body
+        if messages.error
+            span=messages.error
+        if messages.info
+            span=messages.info
+        if messages.ok
+            span=messages.ok
         include partials/header.pug
         main
             block content
