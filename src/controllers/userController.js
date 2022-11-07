@@ -4,30 +4,32 @@ import bcrypt from "bcrypt";
 
 export const getJoin = (req, res) => { return res.render("join", { pageTitle: "Join"}) }
 export const postJoin = async (req, res) => {
-    const { email, username, password, password2, name, location } = req.body;
+    const { name, username, email, password, password2, location } = req.body;
     const pageTitle = "Join";
-    const exists = await User.exists({ $or: [{ username }, { email }] });
     if(password !== password2) {
         return res.status(400).render("join", { pageTitle, errorMessage: "Password confirmation does not match."});
     }
-
+    const exists = await User.exists({ $or: [{ username }, { email }] });
     if(exists) {
-        return res.status(400).render("join", { pageTitle, errorMessage: "This email/username already taken."});
+        return res.status(400).render("join", { 
+            pageTitle, 
+            errorMessage: "This email/username already taken."
+        });
     }
 
     try {
         await User.create({
             email,
-            avatarUrl: "",
-            socialOnly: false,
+            // avatarUrl: ""
+            // socialOnly: false,
             username,
             password,
             name,
             location,
         });
-        res.redirect('/login');
+        return res.redirect('/login');
     } catch(error){
-        console.log(error);
+        // console.log(error);
         return res.status(400).render("join", {
             pageTitle,
             errorMessage: error._message,
@@ -77,7 +79,7 @@ export const finishGithubLogin = async (req, res) => {
         client_id: process.env.GH_CLIENT,
         client_secret: process.env.GH_SECRET,
         code: req.query.code
-    }
+    };
     const params = new URLSearchParams(config).toString();
     const finalUrl = `${baseUrl}?${params}`;
     const tokenRequest = await (
@@ -128,6 +130,7 @@ export const finishGithubLogin = async (req, res) => {
         }
         req.session.loggedIn = true;
         req.session.user = user;
+        console.log("created!");
         return res.redirect("/");
     } else {
         return res.redirect("/login");
