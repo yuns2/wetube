@@ -165,6 +165,7 @@ export const postEdit = async (req, res) => {
             errorMessage: "This username/email is already taken."
         })
     }
+    const isHeroku = process.env.NODE_ENV === "production";
     const updatedUser = await User.findByIdAndUpdate(_id, {
         avatarUrl: file ? (isHeroku ? file.location : file.path) : avatarUrl,
         name,
