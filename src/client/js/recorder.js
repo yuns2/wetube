@@ -36,10 +36,10 @@ const handleDownload = async () => {
     const mp4File = ffmpeg.FS("readFile", files.output);
     const thumbFile = ffmpeg.FS("readFile", files.thumb);
 
-    const mp4Blob = new Blob([mp4File.buffer], {type:"video/mp4"});
+    const mp4Blob = new Blob([mp4File.buffer], { type:"video/mp4" });
 	const thumbBlob = new Blob([thumbFile.buffer], { type: "image/jpg" });
 
-    const mp4Url = URL.createObjectURL(mp4Blob)
+    const mp4Url = URL.createObjectURL(mp4Blob);
 	const thumbUrl = URL.createObjectURL(thumbBlob);
 
     downloadFile(mp4Url, "MyRecording.mp4");
@@ -49,8 +49,8 @@ const handleDownload = async () => {
     ffmpeg.FS("unlink", files.output);
     ffmpeg.FS("unlink", files.thumb);
     
-    URL.revokeObjectURL(thumbUrl);
     URL.revokeObjectURL(mp4Url);
+    URL.revokeObjectURL(thumbUrl);
     URL.revokeObjectURL(videoFile);
 
     actionBtn.disabled = false;

@@ -11,8 +11,8 @@ const s3 = new aws.S3({
 
 const multerUploader = multerS3({
     s3: s3,
-    bucket: 'gaemi-wetube',
-	acl : "pulic-read"
+    bucket: "gaemi-wetube",
+	acl : "public-read"
 })
 
 export const localsMiddleware = (req, res, next) => {

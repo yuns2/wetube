@@ -157,6 +157,7 @@ export const postEdit = async (req, res) => {
         body: { name, email, username, location},
         file,
     } = req;
+    console.log(file);
     const exists = await User.exists({ $or: [{ username }, { email }] });
     if (exists && exists._id!=_id) {
         return res.status(400).render("edit-profile", {
